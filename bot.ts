@@ -1,6 +1,7 @@
 import * as builder from 'botbuilder';
 import { createServer } from 'restify';
 import fs = require('fs');
+import lcs = require('longest-common-substring');
 
 interface Recipe {
     name: string,
@@ -53,7 +54,9 @@ bot.on('conversationUpdate', (data) => {
     console.log(data);
 });
 
-const chooseRecipe = /I want to make (.*)/i;
+var currentRecipe = null;
+const chooseRecipe = /I want to make (?:|a|some)*\s*(.+)/i;
+const queryQuantity = /how (?:many|much) (.+)/i;
 const startRecipe = /(Let's start|Start|Let's Go|Go|I'm ready|Ready|OK|Okay)\.*/i;
 const nextInstruction = /(Next|What's next|OK|Continue)\.*/i;
 
@@ -72,9 +75,30 @@ bot.dialog('/', [
                     session.send(ingredient);
                 })
                 session.send("Let me know when you're ready to go.");
+                currentRecipe = recipe;
             } else {
                 session.send(`Sorry, I don't know how to make ${name}. Maybe you can teach me.`);
             }
+        }
+        else if (groups = queryQuantity.exec(session.message.text)) {
+
+            // Answer a query about ingredient quantity
+
+            var ingredient = groups[1];
+
+            var matches = [];
+            currentRecipe.recipeIngredient.forEach(i => {
+                matches.push([i, lcs(i.split(''), ingredient.split(''))]);
+            });
+
+            var longestMatch = matches.reduce((prev, curr) => {
+                return prev[1].length > curr[1].length ? prev : curr;
+            });
+
+            ingredient = longestMatch[0];
+            session.send(ingredient);
+            return;
+
         // read the next instruction
         } else if (session.privateConversationData.lastInstructionSent !== undefined && nextInstruction.test(session.message.text)) {
             const recipe: Recipe = session.privateConversationData.recipe;
@@ -105,7 +129,8 @@ bot.dialog('/', [
                 if (recipe.recipeInstructions.length === 1)
                     session.send("That's it!");
             }
-        } else {
+        }
+        else {
             session.send("I can't understand you. It's you, not me. Get it together and try again.");
         }
     }

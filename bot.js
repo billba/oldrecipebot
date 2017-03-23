@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const builder = require("botbuilder");
 const restify_1 = require("restify");
 const fs = require("fs");
+const lcs = require("longest-common-substring");
 const file = fs.readFileSync("recipes.json", "utf8");
 const recipes = JSON.parse(file);
 const connector = new builder.ChatConnector({
@@ -16,7 +17,9 @@ const bot = new builder.UniversalBot(connector);
 bot.on('conversationUpdate', (data) => {
     console.log(data);
 });
-const chooseRecipe = /I want to make (.*)/i;
+var currentRecipe = null;
+const chooseRecipe = /I want to make (?:|a|some)*\s*(.+)/i;
+const queryQuantity = /how (?:many|much) (.+)/i;
 const startRecipe = /(Let's start|Start|Let's Go|Go|I'm ready|Ready|OK|Okay)\.*/i;
 const nextInstruction = /(Next|What's next|OK|Continue)\.*/i;
 bot.dialog('/', [
@@ -34,10 +37,25 @@ bot.dialog('/', [
                     session.send(ingredient);
                 });
                 session.send("Let me know when you're ready to go.");
+                currentRecipe = recipe;
             }
             else {
                 session.send(`Sorry, I don't know how to make ${name}. Maybe you can teach me.`);
             }
+        }
+        else if (groups = queryQuantity.exec(session.message.text)) {
+            // Answer a query about ingredient quantity
+            var ingredient = groups[1];
+            var matches = [];
+            currentRecipe.recipeIngredient.forEach(i => {
+                matches.push([i, lcs(i.split(''), ingredient.split(''))]);
+            });
+            var longestMatch = matches.reduce((prev, curr) => {
+                return prev[1].length > curr[1].length ? prev : curr;
+            });
+            ingredient = longestMatch[0];
+            session.send(ingredient);
+            return;
             // read the next instruction
         }
         else if (session.privateConversationData.lastInstructionSent !== undefined && nextInstruction.test(session.message.text)) {

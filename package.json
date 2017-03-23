@@ -19,6 +19,7 @@
     "@types/dotenv": "^2.0.20",
     "@types/restify": "^2.0.42",
     "botbuilder": "^3.7.0",
+    "longest-common-substring": "0.0.1",
     "restify": "^4.3.0"
   },
   "devDependencies": {
