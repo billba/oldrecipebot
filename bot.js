@@ -15,7 +15,16 @@ const bot = new builder.UniversalBot(connector);
 bot.on('conversationUpdate', (data) => {
     console.log(data);
 });
-bot.dialog('/', [(session) => {
-        session.send("yo");
-    }]);
+const chooseRecipe = /I want to make (.*)\./i;
+bot.dialog('/', [
+    (session) => {
+        let groups;
+        if (groups = chooseRecipe.exec(session.message.text)) {
+            session.send(`Great, let's make ${groups[1]}!`);
+        }
+        else {
+            session.send("I can't understand you. It's you, not me. Get it together and try again.");
+        }
+    }
+]);
 //# sourceMappingURL=bot.js.map
