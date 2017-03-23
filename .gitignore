@@ -4,3 +4,4 @@ npm-debug.log
 .nvmrc
 .vscode/settings.json
 .env
+.vscode

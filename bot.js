@@ -18,3 +18,4 @@ bot.on('conversationUpdate', (data) => {
 bot.dialog('/', [(session) => {
         session.send("yo");
     }]);
+//# sourceMappingURL=bot.js.map
