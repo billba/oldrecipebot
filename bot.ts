@@ -27,6 +27,7 @@ bot.dialog('/', [(session) => {
 
 
 interface Recipe {
+    name: string,
     description: string,
     cookTime: Date,
     cookingMethod: string;
@@ -35,7 +36,7 @@ interface Recipe {
     recipeCategory: string,
     recipeCuisine: string,
     recipeIngredient: string[],
-    recipeInstructions: string,
+    recipeInstructions: string[],
     recipeYield: string,
     suitableForDiet: string,
     totalTime: Date
