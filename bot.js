@@ -17,54 +17,51 @@ const bot = new builder.UniversalBot(connector);
 bot.on('conversationUpdate', (data) => {
     console.log(data);
 });
-var currentRecipe = null;
 const chooseRecipe = /I want to make (?:|a|some)*\s*(.+)/i;
 const queryQuantity = /how (?:many|much) (.+)/i;
 const startRecipe = /(Let's start|Start|Let's Go|Go|I'm ready|Ready|OK|Okay)\.*/i;
-const nextInstruction = /(Next|What's next|OK|Continue)\.*/i;
+const nextInstruction = /(Next|What's next|OK|Go|Continue)\.*/i;
 bot.dialog('/', [
     (session) => {
+        const state = session.privateConversationData;
         let groups;
         // choose a recipe
         if (groups = chooseRecipe.exec(session.message.text)) {
             const name = groups[1];
             const recipe = recipeFromName(name);
             if (recipe) {
-                session.privateConversationData.recipe = recipe;
-                session.privateConversationData.lastInstructionSent = undefined;
+                state.recipe = recipe;
+                delete state.lastInstructionSent; // clear this out in case we're starting over
                 session.send(`Great, let's make ${name} which ${recipe.recipeYield}!`);
                 recipe.recipeIngredient.forEach(ingredient => {
                     session.send(ingredient);
                 });
                 session.send("Let me know when you're ready to go.");
-                currentRecipe = recipe;
             }
             else {
                 session.send(`Sorry, I don't know how to make ${name}. Maybe you can teach me.`);
             }
+            // Answer a query about ingredient quantity
         }
         else if (groups = queryQuantity.exec(session.message.text)) {
-            // Answer a query about ingredient quantity
-            var ingredient = groups[1];
-            var matches = [];
-            currentRecipe.recipeIngredient.forEach(i => {
-                matches.push([i, lcs(i.split(''), ingredient.split(''))]);
-            });
-            var longestMatch = matches.reduce((prev, curr) => {
-                return prev[1].length > curr[1].length ? prev : curr;
-            });
-            ingredient = longestMatch[0];
-            session.send(ingredient);
-            return;
+            if (!state.recipe) {
+                session.send("I can't answer that without knowing what we're making.");
+            }
+            else {
+                const ingredientQuery = groups[1].split('');
+                const ingredient = state.recipe.recipeIngredient
+                    .map(i => [i, lcs(i.split(''), ingredientQuery).length])
+                    .reduce((prev, curr) => prev[1] > curr[1] ? prev : curr)[0];
+                session.send(ingredient);
+            }
             // read the next instruction
         }
-        else if (session.privateConversationData.lastInstructionSent !== undefined && nextInstruction.test(session.message.text)) {
-            const recipe = session.privateConversationData.recipe;
-            const nextInstruction = session.privateConversationData.lastInstructionSent + 1;
-            if (nextInstruction < session.privateConversationData.recipe.recipeInstructions.length) {
-                session.send(recipe.recipeInstructions[nextInstruction]);
-                session.privateConversationData.lastInstructionSent = nextInstruction;
-                if (recipe.recipeInstructions.length === nextInstruction + 1)
+        else if (state.lastInstructionSent !== undefined && nextInstruction.test(session.message.text)) {
+            const nextInstruction = state.lastInstructionSent + 1;
+            if (nextInstruction < state.recipe.recipeInstructions.length) {
+                session.send(state.recipe.recipeInstructions[nextInstruction]);
+                state.lastInstructionSent = nextInstruction;
+                if (state.recipe.recipeInstructions.length === nextInstruction + 1)
                     session.send("That's it!");
             }
             else {
@@ -73,11 +70,11 @@ bot.dialog('/', [
             // start reading the instructions
         }
         else if (startRecipe.test(session.message.text)) {
-            if (!session.privateConversationData.recipe) {
+            if (!state.recipe) {
                 session.send("I'm glad you're so hot to trot, but please choose a recipe first.");
             }
-            else if (session.privateConversationData.lastInstructionSent !== undefined) {
-                if (session.privateConversationData.lastInstructionSent + 1 === session.privateConversationData.recipe.recipeInstructions.length) {
+            else if (state.lastInstructionSent !== undefined) {
+                if (state.lastInstructionSent + 1 === state.recipe.recipeInstructions.length) {
                     session.send("We're all done with that recipe. You can choose another recipe if you like.");
                 }
                 else {
@@ -85,10 +82,9 @@ bot.dialog('/', [
                 }
             }
             else {
-                const recipe = session.privateConversationData.recipe;
-                session.privateConversationData.lastInstructionSent = 0;
-                session.send(recipe.recipeInstructions[0]);
-                if (recipe.recipeInstructions.length === 1)
+                state.lastInstructionSent = 0;
+                session.send(state.recipe.recipeInstructions[0]);
+                if (state.recipe.recipeInstructions.length === 1)
                     session.send("That's it!");
             }
         }
