@@ -21,12 +21,18 @@ bot.dialog('/', [
     (session) => {
         let groups;
         if (groups = chooseRecipe.exec(session.message.text)) {
-            session.send(`Great, let's make ${groups[1]}!`);
+            const name = groups[1];
+            const recipe = recipeFromName(name);
+            if (recipe) {
+                session.send(`Great, let's make ${name} which ${recipe.recipeYield}!`);
+            }
+            else {
+                session.send(`Sorry, I don't know how to make ${name}. Maybe you can teach me.`);
+            }
+            return;
         }
-        else {
-            session.send("I can't understand you. It's you, not me. Get it together and try again.");
-        }
+        session.send("I can't understand you. It's you, not me. Get it together and try again.");
     }
 ]);
-const recipeFromName = (name) => recipes.find(recipe => recipe.name === name);
+const recipeFromName = (name) => recipes.find(recipe => recipe.name.toLowerCase() === name.toLowerCase());
 //# sourceMappingURL=bot.js.map
