@@ -1,0 +1,29 @@
+{
+  "name": "recipebot",
+  "version": "0.1.0",
+  "license": "MIT",
+  "description": "We're really cooking now",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/billba/recipebot"
+  },
+  "main": "bot.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node bot.js",
+    "watch": "tsc -w",
+    "nodewatch": "nodemon bot.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@types/dotenv": "^2.0.20",
+    "@types/restify": "^2.0.42",
+    "botbuilder": "^3.7.0",
+    "dotenv": "^4.0.0",
+    "restify": "^4.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0",
+    "typescript": "^2.2.1"
+  }
+}
