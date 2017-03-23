@@ -19,7 +19,6 @@
     "@types/dotenv": "^2.0.20",
     "@types/restify": "^2.0.42",
     "botbuilder": "^3.7.0",
-    "dotenv": "^4.0.0",
     "restify": "^4.3.0"
   },
   "devDependencies": {

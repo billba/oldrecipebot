@@ -2,9 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const builder = require("botbuilder");
 const restify_1 = require("restify");
-const dotenv_1 = require("dotenv");
 const fs = require("fs");
-dotenv_1.config();
 const file = fs.readFileSync("recipes.json", "utf8");
 const recipes = JSON.parse(file);
 const connector = new builder.ChatConnector({

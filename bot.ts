@@ -1,10 +1,6 @@
 import * as builder from 'botbuilder';
 import { createServer } from 'restify';
-import { config } from 'dotenv';
-
 import fs = require('fs');
-
-config();
 
 interface Recipe {
     name: string,
