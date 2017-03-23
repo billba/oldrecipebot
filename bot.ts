@@ -54,27 +54,55 @@ bot.on('conversationUpdate', (data) => {
 });
 
 const chooseRecipe = /I want to make (.*)\./i;
+const startRecipe = /Let's start|Start|Let's Go|Go|I'm ready|Ready|OK|Okay/i;
+const nextInstruction = /Next|What's next|OK/i;
 
 bot.dialog('/', [
     (session) => {
         let groups: RegExpExecArray;
+        // choose a recipe
         if (groups = chooseRecipe.exec(session.message.text)) {
             const name = groups[1];
             const recipe = recipeFromName(name);
             if (recipe) {
-                console.log(recipe);
+                session.privateConversationData.recipe = recipe;
+                session.privateConversationData.lastInstructionSent = undefined;
                 session.send(`Great, let's make ${name} which ${recipe.recipeYield}!`);
                 recipe.recipeIngredient.forEach(ingredient => {
-                    session.sendTyping();
                     session.send(ingredient);
                 })
-                session.send("Say start when you're ready to go.");
+                session.send("Let me know when you're ready to go.");
             } else {
                 session.send(`Sorry, I don't know how to make ${name}. Maybe you can teach me.`);
             }
-            return;
+        // start reading the instructions
+        } else if (session.privateConversationData.lastInstructionSent === undefined && startRecipe.test(session.message.text)) {
+            if (!session.privateConversationData.recipe) {
+                session.send("I'm glad you're so hot to trot, but please choose a recipe first.");
+            } else {
+                const recipe: Recipe = session.privateConversationData.recipe;
+                session.privateConversationData.lastInstructionSent = 0;
+                session.send(recipe.recipeInstructions[0]);
+                if (recipe.recipeInstructions.length === 1)
+                    session.send("That's it!");
+            }
+        // read the next instruction
+        } else if (nextInstruction.test(session.message.text)) {
+            const recipe: Recipe = session.privateConversationData.recipe;
+            const nextInstruction: number = session.privateConversationData.lastInstructionSent + 1;
+
+            if (nextInstruction < session.privateConversationData.recipe.recipeInstructions.length) {
+                session.send(recipe.recipeInstructions[nextInstruction]);
+                session.privateConversationData.lastInstructionSent = nextInstruction;
+                if (recipe.recipeInstructions.length === nextInstruction + 1)
+                    session.send("That's it!");
+            } else {
+                session.send("That's it!");
+            }
+        // default
+        } else {
+            session.send("I can't understand you. It's you, not me. Get it together and try again.");
         }
-        session.send("I can't understand you. It's you, not me. Get it together and try again.");
     }
 ]);
 
