@@ -5,7 +5,7 @@
     "cookTime" : "PT30M",
     "recipeYield" : "Makes 12 slices",
     "description" : "This simplest of sponge cake recipes has a fresh berry and whipped cream filling that takes the classic Victoria sponge to new heights.",
-    "ingredients" : [
+    "recipeIngredient" : [
       "25g/8oz butter or margarine, softened at room temperature",
       "225g/8oz caster sugar",
       "4 medium eggs",

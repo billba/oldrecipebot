@@ -62,7 +62,13 @@ bot.dialog('/', [
             const name = groups[1];
             const recipe = recipeFromName(name);
             if (recipe) {
+                console.log(recipe);
                 session.send(`Great, let's make ${name} which ${recipe.recipeYield}!`);
+                recipe.recipeIngredient.forEach(ingredient => {
+                    session.sendTyping();
+                    session.send(ingredient);
+                })
+                session.send("Say start when you're ready to go.");
             } else {
                 session.send(`Sorry, I don't know how to make ${name}. Maybe you can teach me.`);
             }
