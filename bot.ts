@@ -2,7 +2,43 @@ import * as builder from 'botbuilder';
 import { createServer } from 'restify';
 import { config } from 'dotenv';
 
+import fs = require('fs');
+
 config();
+
+interface Recipe {
+    name: string,
+    description: string,
+    cookTime: Date,
+    cookingMethod: string;
+    nutrition: NutritionInformation,
+    prepTime: Date,
+    recipeCategory: string,
+    recipeCuisine: string,
+    recipeIngredient: string[],
+    recipeInstructions: string[],
+    recipeYield: string,
+    suitableForDiet: string,
+    totalTime: Date
+}
+
+interface NutritionInformation {
+    calories: number,
+    carbohydrateContent: number,
+    cholesterolContent: number,
+    fatContent: number,
+    fiberContent: number,
+    proteinContent: number,
+    saturatedFatContent: number,
+    servingSize: string,
+    sodiumContent: number,
+    sugarContent: number,
+    transFatContent: number,
+    unsaturatedFatContent: number
+}
+
+const file = fs.readFileSync("recipes.json", "utf8")
+const recipes: Partial<Recipe>[] = JSON.parse(file);
 
 const connector = new builder.ChatConnector({
     appId: process.env.MICROSOFT_APP_ID,
@@ -33,3 +69,6 @@ bot.dialog('/', [
         }
     }
 ]);
+
+const recipeFromName = (name) =>
+    recipes.find(recipe => recipe.name === name);
