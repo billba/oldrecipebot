@@ -11,7 +11,7 @@ const connector = new builder.ChatConnector({
 
 const server = createServer();
 server.listen(process.env.port || process.env.PORT || 3978, '::', () =>
-   console.log('%s listening to %s', server.name, server.url)
+    console.log('%s listening to %s', server.name, server.url)
 );
 server.post('/api/messages', connector.listen());
 
@@ -24,3 +24,48 @@ bot.on('conversationUpdate', (data) => {
 bot.dialog('/', [(session) => {
     session.send("yo");
 }]);
+
+
+interface Recipe {
+    description: string,
+    cookTime: Date,
+    cookingMethod: string;
+    nutrition: NutritionInformation,
+    prepTime: Date,
+    recipeCategory: string,
+    recipeCuisine: string,
+    recipeIngredient: string[],
+    recipeInstructions: string,
+    recipeYield: string,
+    suitableForDiet: string,
+    totalTime: Date
+}
+
+interface NutritionInformation {
+    calories: number,
+    carbohydrateContent: number,
+    cholesterolContent: number,
+    fatContent: number,
+    fiberContent: number,
+    proteinContent: number,
+    saturatedFatContent: number,
+    servingSize: string,
+    sodiumContent: number,
+    sugarContent: number,
+    transFatContent: number,
+    unsaturatedFatContent: number
+}
+
+// enum RestrictedDiet {
+//     DiabeticDiet,
+//     GlutenFreeDiet,
+//     HalalDiet,
+//     HinduDiet,
+//     KosherDiet,
+//     LowCalorieDiet,
+//     LowFatDiet,
+//     LowLactoseDiet,
+//     LowSaltDiet,
+//     VeganDiet,
+//     VegetarianDiet,
+// }
