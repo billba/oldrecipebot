@@ -53,9 +53,9 @@ bot.on('conversationUpdate', (data) => {
     console.log(data);
 });
 
-const chooseRecipe = /I want to make (.*)\./i;
-const startRecipe = /Let's start|Start|Let's Go|Go|I'm ready|Ready|OK|Okay/i;
-const nextInstruction = /Next|What's next|OK/i;
+const chooseRecipe = /I want to make (.*)/i;
+const startRecipe = /(Let's start|Start|Let's Go|Go|I'm ready|Ready|OK|Okay)\.*/i;
+const nextInstruction = /(Next|What's next|OK|Continue)\.*/i;
 
 bot.dialog('/', [
     (session) => {
@@ -75,19 +75,8 @@ bot.dialog('/', [
             } else {
                 session.send(`Sorry, I don't know how to make ${name}. Maybe you can teach me.`);
             }
-        // start reading the instructions
-        } else if (session.privateConversationData.lastInstructionSent === undefined && startRecipe.test(session.message.text)) {
-            if (!session.privateConversationData.recipe) {
-                session.send("I'm glad you're so hot to trot, but please choose a recipe first.");
-            } else {
-                const recipe: Recipe = session.privateConversationData.recipe;
-                session.privateConversationData.lastInstructionSent = 0;
-                session.send(recipe.recipeInstructions[0]);
-                if (recipe.recipeInstructions.length === 1)
-                    session.send("That's it!");
-            }
         // read the next instruction
-        } else if (nextInstruction.test(session.message.text)) {
+        } else if (session.privateConversationData.lastInstructionSent !== undefined && nextInstruction.test(session.message.text)) {
             const recipe: Recipe = session.privateConversationData.recipe;
             const nextInstruction: number = session.privateConversationData.lastInstructionSent + 1;
 
@@ -99,7 +88,23 @@ bot.dialog('/', [
             } else {
                 session.send("That's it!");
             }
-        // default
+        // start reading the instructions
+        } else if (startRecipe.test(session.message.text)) {
+            if (!session.privateConversationData.recipe) {
+                session.send("I'm glad you're so hot to trot, but please choose a recipe first.");
+            } else if (session.privateConversationData.lastInstructionSent !== undefined) {
+                if (session.privateConversationData.lastInstructionSent + 1 === session.privateConversationData.recipe.recipeInstructions.length) {
+                    session.send("We're all done with that recipe. You can choose another recipe if you like.");
+                } else {
+                    session.send("We're still working on this recipe. You can continue, or choose another recipe.");
+                }
+            } else {
+                const recipe: Recipe = session.privateConversationData.recipe;
+                session.privateConversationData.lastInstructionSent = 0;
+                session.send(recipe.recipeInstructions[0]);
+                if (recipe.recipeInstructions.length === 1)
+                    session.send("That's it!");
+            }
         } else {
             session.send("I can't understand you. It's you, not me. Get it together and try again.");
         }
