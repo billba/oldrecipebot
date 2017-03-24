@@ -2,6 +2,13 @@ import * as builder from 'botbuilder';
 import { createServer } from 'restify';
 import fs = require('fs');
 import lcs = require('longest-common-substring');
+import { convertIngredient } from "./weightsAndMeasures";
+
+
+//convertIngredient("1oz cheese", "metric");
+//convertIngredient("1lb cheese", "metric");
+//convertIngredient("10g cheese", "imperial");
+convertIngredient("10floz milk", "metric");
 
 interface Recipe {
     name: string,
@@ -133,3 +140,4 @@ bot.dialog('/', [
 
 const recipeFromName = (name: string) =>
     recipes.find(recipe => recipe.name.toLowerCase() === name.toLowerCase());
+

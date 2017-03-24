@@ -4,6 +4,11 @@ const builder = require("botbuilder");
 const restify_1 = require("restify");
 const fs = require("fs");
 const lcs = require("longest-common-substring");
+const weightsAndMeasures_1 = require("./weightsAndMeasures");
+//convertIngredient("1oz cheese", "metric");
+//convertIngredient("1lb cheese", "metric");
+//convertIngredient("10g cheese", "imperial");
+weightsAndMeasures_1.convertIngredient("10floz milk", "metric");
 const file = fs.readFileSync("recipes.json", "utf8");
 const recipes = JSON.parse(file);
 const connector = new builder.ChatConnector({
