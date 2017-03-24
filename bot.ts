@@ -50,14 +50,17 @@ server.post('/api/messages', connector.listen());
 
 const bot = new builder.UniversalBot(connector);
 
-bot.on('conversationUpdate', (data) => {
-    console.log(data);
+bot.on('conversationUpdate', activity => {
+    bot.send(new builder.Message().address(activity.address).text("Let's get cooking!"));
 });
 
 const chooseRecipe = /I want to make (?:|a|some)*\s*(.+)/i;
 const queryQuantity = /how (?:many|much) (.+)/i;
 const startRecipe = /(Let's start|Start|Let's Go|Go|I'm ready|Ready|OK|Okay)\.*/i;
-const nextInstruction = /(Next|What's next|OK|Go|Continue)\.*/i;
+const nextInstruction = /(Next|What's next|next up|OK|okay|Go|Continue)/i;
+const previousInstruction = /(go back|back up)/i;
+const repeatInstruction = /(what's that again|huh|say that again|repeat that|please repeat that)/i;
+const startOver = /(start over|start again|)/i;
 
 interface State {
     recipe: Partial<Recipe>,
@@ -109,6 +112,25 @@ bot.dialog('/', [
             } else {
                 session.send("That's it!");
             }
+        // repeat the current instruction
+        } else if (state.lastInstructionSent !== undefined && repeatInstruction.test(session.message.text)) {
+            session.send(state.recipe.recipeInstructions[state.lastInstructionSent]);
+        // read the previous instruction
+        } else if (state.lastInstructionSent !== undefined && previousInstruction.test(session.message.text)) {
+            const prevInstruction = state.lastInstructionSent - 1;
+
+            if (prevInstruction >= 0) {
+                session.send(state.recipe.recipeInstructions[prevInstruction]);
+                state.lastInstructionSent = prevInstruction;
+            } else {
+                session.send("We're at the beginning.");
+            }
+        // start over
+        } else if (state.lastInstructionSent !== undefined && startOver.test(session.message.text)) {
+            state.lastInstructionSent = 0;
+            session.send(state.recipe.recipeInstructions[0]);
+            if (state.recipe.recipeInstructions.length === 1)
+                session.send("That's it!");            
         // start reading the instructions
         } else if (startRecipe.test(session.message.text)) {
             if (!state.recipe) {
