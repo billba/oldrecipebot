@@ -54,13 +54,17 @@ bot.on('conversationUpdate', activity => {
     bot.send(new builder.Message().address(activity.address).text("Let's get cooking!"));
 });
 
-const chooseRecipe = /I want to make (?:|a|some)*\s*(.+)/i;
-const queryQuantity = /how (?:many|much) (.+)/i;
-const startRecipe = /(Let's start|Start|Let's Go|Go|I'm ready|Ready|OK|Okay)\.*/i;
-const nextInstruction = /(Next|What's next|next up|OK|okay|Go|Continue)/i;
-const previousInstruction = /(go back|back up)/i;
-const repeatInstruction = /(what's that again|huh|say that again|repeat that|please repeat that)/i;
-const startOver = /(start over|start again|)/i;
+const intents = {
+    instructions: {
+        start: /(Let's start|Start|Let's Go|Go|I'm ready|Ready|OK|Okay)\.*/i,
+        next: /(Next|What's next|next up|OK|okay|Go|Continue)/i,
+        previous: /(go back|back up)/i,
+        repeat: /(what's that again|huh|say that again|repeat that|please repeat that)/i,
+        restart: /(start over|start again|)/i
+    },
+    chooseRecipe: /I want to make (?:|a|some)*\s*(.+)/i,
+    queryQuantity: /how (?:many|much) (.+)/i,
+}
 
 interface State {
     recipe: Partial<Recipe>,
@@ -72,7 +76,7 @@ bot.dialog('/', [
         const state = session.privateConversationData as State;
         let groups: RegExpExecArray;
         // choose a recipe
-        if (groups = chooseRecipe.exec(session.message.text)) {
+        if (groups = intents.chooseRecipe.exec(session.message.text)) {
             const name = groups[1];
             const recipe = recipeFromName(name);
             if (recipe) {
@@ -87,7 +91,7 @@ bot.dialog('/', [
                 session.send(`Sorry, I don't know how to make ${name}. Maybe you can teach me.`);
             }
         // Answer a query about ingredient quantity
-        } else if (groups = queryQuantity.exec(session.message.text)) {
+        } else if (groups = intents.queryQuantity.exec(session.message.text)) {
             if (!state.recipe) {
                 session.send("I can't answer that without knowing what we're making.")
             } else {
@@ -101,7 +105,7 @@ bot.dialog('/', [
                 session.send(ingredient);
             }
         // read the next instruction
-        } else if (state.lastInstructionSent !== undefined && nextInstruction.test(session.message.text)) {
+        } else if (state.lastInstructionSent !== undefined && intents.instructions.next.test(session.message.text)) {
             const nextInstruction = state.lastInstructionSent + 1;
 
             if (nextInstruction < state.recipe.recipeInstructions.length) {
@@ -113,10 +117,10 @@ bot.dialog('/', [
                 session.send("That's it!");
             }
         // repeat the current instruction
-        } else if (state.lastInstructionSent !== undefined && repeatInstruction.test(session.message.text)) {
+        } else if (state.lastInstructionSent !== undefined && intents.instructions.repeat.test(session.message.text)) {
             session.send(state.recipe.recipeInstructions[state.lastInstructionSent]);
         // read the previous instruction
-        } else if (state.lastInstructionSent !== undefined && previousInstruction.test(session.message.text)) {
+        } else if (state.lastInstructionSent !== undefined && intents.instructions.previous.test(session.message.text)) {
             const prevInstruction = state.lastInstructionSent - 1;
 
             if (prevInstruction >= 0) {
@@ -126,13 +130,13 @@ bot.dialog('/', [
                 session.send("We're at the beginning.");
             }
         // start over
-        } else if (state.lastInstructionSent !== undefined && startOver.test(session.message.text)) {
+        } else if (state.lastInstructionSent !== undefined && intents.instructions.restart.test(session.message.text)) {
             state.lastInstructionSent = 0;
             session.send(state.recipe.recipeInstructions[0]);
             if (state.recipe.recipeInstructions.length === 1)
                 session.send("That's it!");            
         // start reading the instructions
-        } else if (startRecipe.test(session.message.text)) {
+        } else if (intents.instructions.start.test(session.message.text)) {
             if (!state.recipe) {
                 session.send("I'm glad you're so hot to trot, but please choose a recipe first.");
             } else if (state.lastInstructionSent !== undefined) {
