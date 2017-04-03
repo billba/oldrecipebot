@@ -3,10 +3,10 @@
         "module": "commonjs",
         "sourceMap": true,
         "target": "es6",
-        "outDir": "./",
+        "outDir": "./built",
         "noImplicitAny": false
     },
     "files": [
-        "bot.ts"
+        "./src/bot.ts"
     ]
 }

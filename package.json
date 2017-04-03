@@ -10,9 +10,9 @@
   "main": "bot.js",
   "scripts": {
     "build": "tsc",
-    "start": "node bot.js",
+    "start": "node built/bot.js",
     "watch": "tsc -w",
-    "nodewatch": "nodemon bot.js",
+    "nodewatch": "nodemon built/bot.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {

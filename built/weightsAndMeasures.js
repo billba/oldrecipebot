@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var convert = require('convert-units');
+const convert = require("convert-units");
 const metric = /([0-9]+)\s*(ml|l|kg|g)*\s+(.*)/;
 const imperial = /([0-9]+)\s*(lb|oz|floz|pint|gallon|cup)*\s+(.*)/;
 const universal = /([0-9]+)\s*(tsp|tbsp|pinch|pinches|drop)/;
@@ -30,43 +30,42 @@ const sourceSystemFromUnit = (unit) => {
     return "universal";
 };
 const targetUnitFromSource = (targetSystem, sourceUnit) => {
-    var sourceSystem = sourceSystemFromUnit(sourceUnit);
-    if (sourceSystem == targetSystem) {
+    const sourceSystem = sourceSystemFromUnit(sourceUnit);
+    if (sourceSystem === targetSystem) {
         return sourceUnit;
     }
-    var _unitType = unitType(sourceUnit);
+    const _unitType = unitType(sourceUnit);
     switch (sourceSystem) {
         case "imperial": {
-            if (_unitType == "mass")
+            if (_unitType === "mass")
                 return "kg";
-            else if (_unitType == "volume")
+            else if (_unitType === "volume")
                 return "l";
         }
         case "metric": {
-            if (_unitType == "mass")
+            if (_unitType === "mass")
                 return "lb";
-            else
-                (_unitType == "volume");
-            return "floz";
+            else if (_unitType === "volume")
+                return "floz";
         }
     }
     return sourceUnit;
 };
 const standardiseUnit = (unit) => {
-    unit = unit.replace(/ /g, '');
-    if (unit == "floz")
+    const _unit = unit.replace(/ /g, '');
+    if (_unit === "floz")
         return "fl-oz";
-    return unit;
+    return _unit;
 };
 exports.convertIngredient = (ingredient, targetSystem) => {
-    var match;
-    var result = ingredient;
+    let result = ingredient;
     measurementSystems.some(s => {
+        let match;
         if (match = s.exec(ingredient)) {
-            var amount = match[1];
-            var units = standardiseUnit(match[2]);
-            var targetUnits = targetUnitFromSource(targetSystem, units);
-            var conversion = convert(convert(amount).from(units).to(targetUnits) // system conversion
+            const amount = match[1];
+            const units = standardiseUnit(match[2]);
+            const targetUnits = targetUnitFromSource(targetSystem, units);
+            const conversion = convert(convert(amount).from(units).to(targetUnits) // system conversion
             ).from(targetUnits).toBest(); // scale conversion (e.g. kg to g, 1/2 lb to 8oz)
             if (conversion.val > 1 && smallUnits.indexOf(conversion.unit) != -1) {
                 result = `${Math.round(conversion.val)}${conversion.unit} ${match[3]}`;
