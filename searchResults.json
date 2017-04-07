@@ -1,0 +1,170 @@
+{
+  "_type": "SearchResponse",
+  "webPages": {
+    "webSearchUrl": "https://www.bing.com/cr?IG=A72CAEB1607944B6925B2ADB7ED5CD95&CID=13F327869E08659903262DC99F396451&rd=1&h=m4caRnfpHKizrxuqdUiyJCf1giHSR5DKTmY8q37Xxrg&v=1&r=https%3a%2f%2fwww.bing.com%2fsearch%3fq%3dchocolate%2bcupcake%2brecipes&p=DevEx,5264.1",
+    "totalEstimatedMatches": 652000,
+    "value": [
+      {
+        "id": "https://api.cognitive.microsoft.com/api/v5/#WebPages.0",
+        "name": "<b>Chocolate cupcakes</b> recipe - All <b>recipes</b> UK",
+        "url": "http://www.bing.com/cr?IG=A72CAEB1607944B6925B2ADB7ED5CD95&CID=13F327869E08659903262DC99F396451&rd=1&h=lgxU-4ZVrx-y5eiMX6MdFm60D_x2Jf8TtLzG6b6lMaQ&v=1&r=http%3a%2f%2fallrecipes.co.uk%2frecipe%2f27808%2fchocolate-cupcakes.aspx&p=DevEx,5049.1",
+        "displayUrl": "all<b>recipes</b>.co.uk/recipe/27808/<b>chocolate-cupcakes</b>.aspx",
+        "snippet": "This is my fail-safe recipe for <b>chocolate cupcakes</b> made with cocoa powder. Use whatever type of <b>chocolate</b> you prefer for the <b>chocolate</b> buttercream icing: dark, milk ...",
+        "dateLastCrawled": "2017-03-21T01:43:00"
+      },
+      {
+        "id": "https://api.cognitive.microsoft.com/api/v5/#WebPages.1",
+        "name": "<b>BBC</b> – Food – Cupcakes <b>recipes</b>",
+        "url": "http://www.bing.com/cr?IG=A72CAEB1607944B6925B2ADB7ED5CD95&CID=13F327869E08659903262DC99F396451&rd=1&h=Pde4kKCP0AKGSwoIh3J5iOXHsayxWknR6j49-eINEl0&v=1&r=http%3a%2f%2fwww.bbc.co.uk%2ffood%2fcupcakes&p=DevEx,5062.1",
+        "displayUrl": "<b>www.bbc.co.uk</b>/food/<b>cupcake</b>s",
+        "snippet": "From easy vanilla cupcakes to decadent Black Forest <b>chocolate cupcakes</b>, enjoy our favourite <b>cupcake recipes</b>. Decorate with mile-high frostings of buttercream or cream ...",
+        "dateLastCrawled": "2017-03-21T04:06:00"
+      },
+      {
+        "id": "https://api.cognitive.microsoft.com/api/v5/#WebPages.2",
+        "name": "<b>Chocolate cupcakes</b> recipe - goodtoknow",
+        "url": "http://www.bing.com/cr?IG=A72CAEB1607944B6925B2ADB7ED5CD95&CID=13F327869E08659903262DC99F396451&rd=1&h=nSZATdtD1oXzqFGqFjhcXs3_Yy5SDZyzXSxgOoEhgq4&v=1&r=http%3a%2f%2fwww.goodtoknow.co.uk%2frecipes%2f499762%2flibbie-s-chocolate-cupcakes&p=DevEx,5084.1",
+        "displayUrl": "www.goodtoknow.co.uk/<b>recipes</b>/499762/libbie-s-<b>chocolate-cupcakes</b>",
+        "snippet": "This classic <b>chocolate cupcake</b> recipe is not difficult to follow and makes perfectly easy <b>chocolate cupcakes</b> every time.",
+        "dateLastCrawled": "2017-03-20T09:56:00"
+      },
+      {
+        "id": "https://api.cognitive.microsoft.com/api/v5/#WebPages.3",
+        "name": "<b>Chocolate cupcakes</b> - All <b>recipes</b> UK",
+        "url": "http://www.bing.com/cr?IG=A72CAEB1607944B6925B2ADB7ED5CD95&CID=13F327869E08659903262DC99F396451&rd=1&h=AcWSNSLvqfhw2TvOYzbXvwAFoTaV5lCw6DgXx38KDEY&v=1&r=http%3a%2f%2fallrecipes.co.uk%2frecipes%2ftag-3472%2fchocolate-cupcakes.aspx&p=DevEx,5103.1",
+        "displayUrl": "all<b>recipes</b>.co.uk/<b>recipes</b>/tag-3472/<b>chocolate-cupcakes</b>.aspx",
+        "snippet": "Find crowd-pleasing <b>chocolate cupcake recipes</b> to impress work colleagues, wow guests or make any birthday party a hit.",
+        "dateLastCrawled": "2017-03-20T14:16:00"
+      },
+      {
+        "id": "https://api.cognitive.microsoft.com/api/v5/#WebPages.4",
+        "name": "<b>Chocolate Cupcakes</b> Recipe | Dr. Oetker",
+        "url": "http://www.bing.com/cr?IG=A72CAEB1607944B6925B2ADB7ED5CD95&CID=13F327869E08659903262DC99F396451&rd=1&h=xRsHiCN-Q9ggfREH6yq3OgWI9G0IJ6Zq9p8-a42Erx0&v=1&r=http%3a%2f%2fwww.oetker.co.uk%2fuk-en%2frezepte%2fr%2fchocolate-cupcakes.html&p=DevEx,5116.1",
+        "displayUrl": "www.oetker.co.uk/uk-en/rezepte/r/<b>chocolate-cupcakes</b>.html",
+        "snippet": "This recipe is a great way to make a simple <b>chocolate cupcake</b> look even more delicious.",
+        "dateLastCrawled": "2017-03-18T17:27:00"
+      },
+      {
+        "id": "https://api.cognitive.microsoft.com/api/v5/#WebPages.5",
+        "name": "<b>Chocolate Cupcake Recipes</b> : Food Network",
+        "url": "http://www.bing.com/cr?IG=A72CAEB1607944B6925B2ADB7ED5CD95&CID=13F327869E08659903262DC99F396451&rd=1&h=91ANS8JSaRTlKGJUPqN7XpZnQvCI3P8HR_F-ylQvg8E&v=1&r=http%3a%2f%2fwww.foodnetwork.com%2ftopics%2fchocolate-cupcake-recipes&p=DevEx,5127.1",
+        "displayUrl": "<b>www.foodnetwork.com</b>/topics/<b>chocolate-cupcake-recipes</b>",
+        "snippet": "Satisfy your sweet tooth with our best <b>Chocolate Cupcakes Recipes</b> from the expert chefs at Food Network.",
+        "dateLastCrawled": "2017-03-21T09:32:00"
+      },
+      {
+        "id": "https://api.cognitive.microsoft.com/api/v5/#WebPages.6",
+        "name": "<b>Hummingbird Chocolate Cupcakes</b> | Baking | Tesco Real Food",
+        "url": "https://www.bing.com/cr?IG=A72CAEB1607944B6925B2ADB7ED5CD95&CID=13F327869E08659903262DC99F396451&rd=1&h=VbMVzwUzPeGz5iG5qLuo3iFP-eMPoU9PJeLrnxTW7C0&v=1&r=https%3a%2f%2frealfood.tesco.com%2frecipes%2fhummingbird-chocolate-cupcakes.html&p=DevEx,5142.1",
+        "displayUrl": "https://realfood.tesco.com/<b>recipes</b>/<b>hummingbird-chocolate-cupcakes</b>.html",
+        "snippet": "For the cupcakes. Preheat the oven to 170°C (325°F) Gas Mark 3. Put the flour, cocoa powder, sugar, baking powder, salt and butter in a freestanding electric mixer ...",
+        "dateLastCrawled": "2017-03-21T11:49:00"
+      },
+      {
+        "id": "https://api.cognitive.microsoft.com/api/v5/#WebPages.7",
+        "name": "<b>Chocolate Cupcakes</b> Recipe - <b>Allrecipes.com</b>",
+        "url": "http://www.bing.com/cr?IG=A72CAEB1607944B6925B2ADB7ED5CD95&CID=13F327869E08659903262DC99F396451&rd=1&h=B6B0udu8e1eEfU7TDqdFNWTYwl0GV85kOh2aXfcvvr4&v=1&r=http%3a%2f%2fallrecipes.com%2frecipe%2f17377%2fchocolate-cupcakes%2f&p=DevEx,5169.1",
+        "about": [
+          {
+            "name": "Chocolate Cupcakes"
+          }
+        ],
+        "displayUrl": "<b>allrecipes.com</b>/recipe/17377",
+        "snippet": "Ready in 30 minutes, this quick <b>chocolate cupcake</b> recipe is the perfect party treat.",
+        "dateLastCrawled": "2017-03-20T14:06:00"
+      },
+      {
+        "id": "https://api.cognitive.microsoft.com/api/v5/#WebPages.8",
+        "name": "Amazing <b>chocolate cupcakes</b> | BBC Good Food",
+        "url": "https://www.bing.com/cr?IG=A72CAEB1607944B6925B2ADB7ED5CD95&CID=13F327869E08659903262DC99F396451&rd=1&h=qNLIx4cHH4VvziC32qsHu-jM_trFc5zIhEOlrnjxNZw&v=1&r=https%3a%2f%2fwww.bbcgoodfood.com%2frecipes%2f1155643%2famazing-chocolate-cupcakes-&p=DevEx,5187.1",
+        "displayUrl": "https://<b>www.bbcgoodfood.com</b>/.../1155643/amazing-<b>chocolate-cupcakes</b>-",
+        "snippet": "I was really hopeful about this recipe, and put a lot of faith in them. I needed a quick, tasty <b>cupcake</b>/fairy cake recipe for a school cake rota next day, not much ...",
+        "dateLastCrawled": "2017-03-20T08:06:00"
+      },
+      {
+        "id": "https://api.cognitive.microsoft.com/api/v5/#WebPages.9",
+        "name": "<b>Mary Berry Chocolate Cupcake</b> Recipe | BakingMad.com",
+        "url": "https://www.bing.com/cr?IG=A72CAEB1607944B6925B2ADB7ED5CD95&CID=13F327869E08659903262DC99F396451&rd=1&h=vplShMKTiOuZvCJ4YQhMdx024wEePxVlsIcJT07Bwnw&v=1&r=https%3a%2f%2fwww.bakingmad.com%2fmary-berry-chocolate-cupcake-recipe%2f&p=DevEx,5202.1",
+        "displayUrl": "https://www.bakingmad.com/<b>mary-berry-chocolate-cupcake</b>-recipe",
+        "snippet": "<b>Mary Berry Chocolate Cupcake</b> Recipe is pure <b>chocolate</b> indulgence. Children will love to decorate with <b>chocolate</b> strands and <b>chocolate</b> decorations.",
+        "dateLastCrawled": "2017-03-20T04:44:00"
+      }
+    ]
+  },
+  "rankingResponse": {
+    "mainline": {
+      "items": [
+        {
+          "answerType": "WebPages",
+          "resultIndex": 0,
+          "value": {
+            "id": "https://api.cognitive.microsoft.com/api/v5/#WebPages.0"
+          }
+        },
+        {
+          "answerType": "WebPages",
+          "resultIndex": 1,
+          "value": {
+            "id": "https://api.cognitive.microsoft.com/api/v5/#WebPages.1"
+          }
+        },
+        {
+          "answerType": "WebPages",
+          "resultIndex": 2,
+          "value": {
+            "id": "https://api.cognitive.microsoft.com/api/v5/#WebPages.2"
+          }
+        },
+        {
+          "answerType": "WebPages",
+          "resultIndex": 3,
+          "value": {
+            "id": "https://api.cognitive.microsoft.com/api/v5/#WebPages.3"
+          }
+        },
+        {
+          "answerType": "WebPages",
+          "resultIndex": 4,
+          "value": {
+            "id": "https://api.cognitive.microsoft.com/api/v5/#WebPages.4"
+          }
+        },
+        {
+          "answerType": "WebPages",
+          "resultIndex": 5,
+          "value": {
+            "id": "https://api.cognitive.microsoft.com/api/v5/#WebPages.5"
+          }
+        },
+        {
+          "answerType": "WebPages",
+          "resultIndex": 6,
+          "value": {
+            "id": "https://api.cognitive.microsoft.com/api/v5/#WebPages.6"
+          }
+        },
+        {
+          "answerType": "WebPages",
+          "resultIndex": 7,
+          "value": {
+            "id": "https://api.cognitive.microsoft.com/api/v5/#WebPages.7"
+          }
+        },
+        {
+          "answerType": "WebPages",
+          "resultIndex": 8,
+          "value": {
+            "id": "https://api.cognitive.microsoft.com/api/v5/#WebPages.8"
+          }
+        },
+        {
+          "answerType": "WebPages",
+          "resultIndex": 9,
+          "value": {
+            "id": "https://api.cognitive.microsoft.com/api/v5/#WebPages.9"
+          }
+        }
+      ]
+    }
+  }
+}

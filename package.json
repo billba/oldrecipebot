@@ -10,17 +10,18 @@
   "main": "bot.js",
   "scripts": {
     "build": "tsc",
-    "start": "node built/bot.js",
+    "start": "node bot.js",
     "watch": "tsc -w",
-    "nodewatch": "nodemon built/bot.js",
+    "nodewatch": "nodemon bot.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
     "@types/dotenv": "^2.0.20",
     "@types/restify": "^2.0.42",
     "botbuilder": "^3.7.0",
-    "convert-units": "^2.0.1",
+    "html-scrapper": "0.0.3",
     "longest-common-substring": "0.0.1",
+    "mongoose": "^4.9.2",
     "restify": "^4.3.0"
   },
   "devDependencies": {
